@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btnBuscar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginBottom="106dp"
+        android:text="buscar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtBuscarFotoUsuario"
+        app:layout_constraintTop_toBottomOf="@+id/btnGuardarUsuario" />
+
+    <ImageView
+        android:id="@+id/imgPerfil"
+        android:layout_width="153dp"
+        android:layout_height="166dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/btnGaleria"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/btnGaleria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="57dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="14dp"
+        android:text="Subir imagen de la galeria"
+        app:layout_constraintBottom_toTopOf="@+id/btnFoto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgPerfil"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/txtBuscarFotoUsuario"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginEnd="13dp"
+        android:ems="10"
+        android:hint="Buscar Usuario"
+        android:inputType="text"
+        app:layout_constraintEnd_toStartOf="@+id/btnBuscar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnBuscar" />
+
+    <EditText
+        android:id="@+id/txtCorreo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginBottom="18dp"
+        android:ems="10"
+        android:hint="Correo electronico"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/txtClave"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/txtClave"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginBottom="49dp"
+        android:ems="10"
+        android:hint="Contraseña"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/btnGuardarUsuario"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtCorreo" />
+
+    <Button
+        android:id="@+id/btnGuardarUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="151dp"
+        android:text="Guardar usuario"
+        app:layout_constraintBottom_toTopOf="@+id/btnBuscar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtClave" />
+
+    <Button
+        android:id="@+id/btnFoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="58dp"
+        android:text="Tomar foto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgPerfil"
+        app:layout_constraintTop_toBottomOf="@+id/btnGaleria" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="114dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="114dp"
+        android:layout_marginBottom="213dp"
+        android:text="Registrar Usuario"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtCorreo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

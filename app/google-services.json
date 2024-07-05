@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "793565302721",
+    "project_id": "imagenes-kotlin-oracle",
+    "storage_bucket": "imagenes-kotlin-oracle.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793565302721:android:f352bf5b64f1b691946940",
+        "android_client_info": {
+          "package_name": "bryan.miranda.fotos"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPh51QbyYV0EEOt85ziAM5qjIL_0PvKqo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
