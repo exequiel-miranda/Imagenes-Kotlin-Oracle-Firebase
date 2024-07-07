@@ -10,7 +10,7 @@ class ClaseConexion{
 
 
         try {
-            val ip = "jdbc:oracle:thin:@192.168.250.209:1521:xe"
+            val ip = "jdbc:oracle:thin:@192.168.1.120:1521:xe"
             val usuario = "system"
             val contrasena = "ITR2024"
 

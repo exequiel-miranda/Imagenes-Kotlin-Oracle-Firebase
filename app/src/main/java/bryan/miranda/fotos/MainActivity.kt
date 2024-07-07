@@ -2,21 +2,22 @@ package bryan.miranda.fotos
 
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.Firebase
-import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.storage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -24,21 +25,19 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import modelo.ClaseConexion
 import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
-import java.sql.DriverManager
 import java.sql.SQLException
 import java.util.UUID
 
 class MainActivity : AppCompatActivity() {
-     val codigo_opcion_galeria = 102
-     val codigo_opcion_tomar_foto = 103
+    val codigo_opcion_galeria = 102
+    val codigo_opcion_tomar_foto = 103
+    private val CAMERA_REQUEST_CODE = 0
 
-     lateinit var imageView: ImageView
-     lateinit var miPath:String
-     lateinit var txtCorreo: EditText
-     lateinit var txtClave: EditText
-     val uuid = UUID.randomUUID().toString()
+    lateinit var imageView: ImageView
+    lateinit var miPath: String
+    lateinit var txtCorreo: EditText
+    lateinit var txtClave: EditText
+    val uuid = UUID.randomUUID().toString()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,9 +65,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnFoto.setOnClickListener {
-            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            startActivityForResult(intent, codigo_opcion_tomar_foto)
-
+            //Al darle clic al botón de la camara pedimos los permisos primero
+            checkCameraPermission()
         }
 
         btnGuardar.setOnClickListener {
@@ -79,7 +77,11 @@ class MainActivity : AppCompatActivity() {
             if (correo.isNotEmpty() && clave.isNotEmpty() && imageUri != null) {
                 guardarUsuarioConFoto(correo, clave, imageUri)
             } else {
-                Toast.makeText(this, "Completa todos los campos y selecciona una foto", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "Completa todos los campos y selecciona una foto",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
@@ -89,8 +91,50 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun checkCameraPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.CAMERA)
+            != PackageManager.PERMISSION_GRANTED) {
+            //El permiso no está aceptado, entonces se lo pedimos
+            requestCameraPermission()
+        } else {
 
+        }
+    }
+    private fun requestCameraPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                android.Manifest.permission.CAMERA)) {
+            //El usuario ya ha rechazado el permiso anteriormente, debemos informarle que vaya a ajustes.
+        } else {
+            //El usuario nunca ha aceptado ni rechazado, así que le pedimos que acepte el permiso.
+            ActivityCompat.requestPermissions(this,
+                arrayOf(android.Manifest.permission.CAMERA),
+                CAMERA_REQUEST_CODE)
+        }
+    }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>, grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            CAMERA_REQUEST_CODE -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    //El usuario ha aceptado el permiso, no tiene porqué darle de nuevo al botón, podemos lanzar la funcionalidad desde aquí.
+                    //Abrimos la camara:
+                    val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                    startActivityForResult(intent, codigo_opcion_tomar_foto)
+                } else {
+                    //El usuario ha rechazado el permiso, podemos desactivar la funcionalidad o mostrar una vista/diálogo.
+                }
+                return
+            }
+            else -> {
+                // Este else lo dejamos por si sale un permiso que no teníamos controlado.
+            }
+        }
+    }
 
     //Esta función onActivityResult se encarga de capturar lo que pasa al abrir la geleria o la camara
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -152,10 +196,10 @@ class MainActivity : AppCompatActivity() {
                     objConexion?.prepareStatement("INSERT INTO tbMisUsuarios (UUID, correo, contrasena, FotoURI) VALUES (?, ?, ?, ?)")!!
                 statement.setString(1, uuid)
                 statement.setString(2, correo)
-                statement.setString(2, clave)
-                statement.setString(3, imageUri)
+                statement.setString(3, clave)
+                statement.setString(4, imageUri)
                 statement.executeUpdate()
-                withContext(Dispatchers.Main){
+                withContext(Dispatchers.Main) {
                     Toast.makeText(this@MainActivity, "Datos guardados", Toast.LENGTH_SHORT).show()
                     txtCorreo.text.clear()
                     txtClave.text.clear()
@@ -175,7 +219,8 @@ class MainActivity : AppCompatActivity() {
             try {
                 val objConexion = ClaseConexion().cadenaConexion()
 
-                val statement = objConexion?.prepareStatement("SELECT FotoURI FROM tbMisUsuarios WHERE correo = ?")!!
+                val statement =
+                    objConexion?.prepareStatement("SELECT FotoURI FROM tbMisUsuarios WHERE correo = ?")!!
                 statement.setString(1, username)
                 val resultSet = statement.executeQuery()
                 if (resultSet.next()) {
