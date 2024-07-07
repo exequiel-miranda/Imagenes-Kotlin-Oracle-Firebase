@@ -283,6 +283,7 @@ class MainActivity : AppCompatActivity() {
                             val imageUri = Uri.parse(imageUriString)
                            // imageView.setImageURI(imageUri)
                             //Aqui colocar una liberia que cargue las URL en el imageView (usar GLide)
+                            // [EN PROCESO...]
                         }
                     } else {
                         println("error")
