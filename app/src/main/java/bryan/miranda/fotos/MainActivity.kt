@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     val codigo_opcion_galeria = 102
     val codigo_opcion_tomar_foto = 103
     private val CAMERA_REQUEST_CODE = 0
+    private val STORAGE_REQUEST_CODE = 1
 
     lateinit var imageView: ImageView
     lateinit var miPath: String
@@ -59,9 +60,8 @@ class MainActivity : AppCompatActivity() {
         txtClave = findViewById(R.id.txtClave)
 
         btnGaleria.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "image/*"
-            startActivityForResult(intent, codigo_opcion_galeria)
+            //Al darle clic al botón de la galeria pedimos los permisos primero
+            checkStoragePermission()
         }
 
         btnFoto.setOnClickListener {
@@ -92,24 +92,63 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkCameraPermission() {
-        if (ContextCompat.checkSelfPermission(this,
-                android.Manifest.permission.CAMERA)
-            != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.CAMERA
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
             //El permiso no está aceptado, entonces se lo pedimos
             requestCameraPermission()
         } else {
 
         }
     }
+
+    private fun checkStoragePermission() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+
+            //El permiso no está aceptado, entonces se lo pedimos
+            requestStoragePermission()
+        } else {
+
+        }
+    }
+
     private fun requestCameraPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                android.Manifest.permission.CAMERA)) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(
+                this,
+                android.Manifest.permission.CAMERA
+            )
+        ) {
             //El usuario ya ha rechazado el permiso anteriormente, debemos informarle que vaya a ajustes.
         } else {
             //El usuario nunca ha aceptado ni rechazado, así que le pedimos que acepte el permiso.
-            ActivityCompat.requestPermissions(this,
+            ActivityCompat.requestPermissions(
+                this,
                 arrayOf(android.Manifest.permission.CAMERA),
-                CAMERA_REQUEST_CODE)
+                CAMERA_REQUEST_CODE
+            )
+        }
+    }
+
+    private fun requestStoragePermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(
+                this,
+                android.Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+        ) {
+            //El usuario ya ha rechazado el permiso anteriormente, debemos informarle que vaya a ajustes.
+        } else {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
+                STORAGE_REQUEST_CODE
+            )
         }
     }
 
@@ -128,8 +167,22 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     //El usuario ha rechazado el permiso, podemos desactivar la funcionalidad o mostrar una vista/diálogo.
                 }
+
                 return
             }
+
+            STORAGE_REQUEST_CODE -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    //Abrimos la galeria
+                    val intent = Intent(Intent.ACTION_PICK)
+                    intent.type = "image/*"
+                    startActivityForResult(intent, codigo_opcion_galeria)
+                } else {
+                    Toast.makeText(this, "Permiso de almacenamiento denegado", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+
             else -> {
                 // Este else lo dejamos por si sale un permiso que no teníamos controlado.
             }
@@ -228,7 +281,8 @@ class MainActivity : AppCompatActivity() {
                     if (imageUriString != null) {
                         withContext(Dispatchers.Main) {
                             val imageUri = Uri.parse(imageUriString)
-                            imageView.setImageURI(imageUri)
+                           // imageView.setImageURI(imageUri)
+                            //Aqui colocar una liberia que cargue las URL en el imageView (usar GLide)
                         }
                     } else {
                         println("error")
