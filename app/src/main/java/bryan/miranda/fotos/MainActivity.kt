@@ -31,8 +31,8 @@ import java.util.UUID
 class MainActivity : AppCompatActivity() {
     val codigo_opcion_galeria = 102
     val codigo_opcion_tomar_foto = 103
-    private val CAMERA_REQUEST_CODE = 0
-    private val STORAGE_REQUEST_CODE = 1
+    val CAMERA_REQUEST_CODE = 0
+    val STORAGE_REQUEST_CODE = 1
 
     lateinit var imageView: ImageView
     lateinit var miPath: String
