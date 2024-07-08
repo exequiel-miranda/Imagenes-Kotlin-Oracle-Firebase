@@ -37,8 +37,24 @@ Y aqui están las funciones para solicitar ese permiso</br>
 ![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/8a968424-9f8f-461a-bc64-2573a3bbb5ec)</br>
 Estas funciones son las que hacen aparecer este cuadrito que dice si aceptamos los permisos o no</br></br>
 
-
-
+El método onRequestPermissionsResult se llama cuando el usuario responde a una solicitud de permisos. Este método ya es propio del lenguaje Kotlin</br>
+El método utiliza una estructura when (similar a switch en otros lenguajes) para manejar diferentes códigos de solicitud de permisos</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/6b422e53-1c88-4932-a737-6b2e61e00f17)</br>
+En otras palabras: el usuario acaba de aceptar los permisos en el cuadrito que nos aparece, entonces ¿que hacemos despues de eso? pues eso lo manejamos con esta función</br>
+OJO: Fijense como para abrir la camara usamos:
+```kotlin
+  val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+  startActivityForResult(intent, codigo_opcion_tomar_foto)
+```
+Y para abrir la galeria usamos:
+```kotlin
+  val intent = Intent(Intent.ACTION_PICK
+  intent.type = "image/*"
+  startActivityForResult(intent, codigo_opcion_galeria)
+```
+</br>
+📍 Checkpoint 📍</br>
+Ahorita lo que tenemos es que al precionar los botones de la galeria y de la camara primero se comprueban los permisos, luego si no los tiene se le pide los permisos al usuario, y si los acepta se abre la galeria o la camara dependiendo de que botón precionó. Entonces, hasta este checkpoint tenemos abierta la camara o la galeria, continuemos y veamos que pasa después de abrir la camara o la galeria</br>
 
 
 
