@@ -6,10 +6,14 @@ Para esto, este proyecto tiene esta interfaz que simula una pantalla de registro
 </br></br>
 * Cosas importantes antes de empezar: </br>
 Necesitamos colocar los permisos de acceso a la camara y a la galeria en el AndroidManifest.xml </br>
-![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/b0aef078-9e9d-43e2-8a5a-d0f533a6fab0)</br>
-</br></br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/6c1c6b8c-528a-4f94-893b-75ef71d21d6d)
+</br>
+</br>
 
 <hr>
+
+Código en la función onCreate:
+</br>
 
 Empezamos declarando constantes y variables a nivel de clase, declararlas aqui hace que pueda acceder a ellas desde cualquier función de esta clase (no solo desde la función onCreate)</br>
 Vean como inicio declarando constantes que tienen códigos, estas se declaran cuando tengo dos o mas opciones que el usuario puede escoger, me ayuda a asignarle un código a cada opción, por ejemplo, si el usuario tiene la opción para escoger la imagen desde galeria o desde la camara, entonces, para identificar que opción escogió lo hago con estos códigos, de tal manera que si el código es "102" es por que escogió la galeria y si el código es "103" es por que eligió la camara. <Strong>Estos códigos pueden ser cualquiera, no hay un numero en especifico</Strong> </br>
@@ -54,7 +58,50 @@ Y para abrir la galeria usamos:
 ```
 </br>
 📍 Checkpoint 📍</br>
-Ahorita lo que tenemos es que al precionar los botones de la galeria y de la camara primero se comprueban los permisos, luego si no los tiene se le pide los permisos al usuario, y si los acepta se abre la galeria o la camara dependiendo de que botón precionó. Entonces, hasta este checkpoint tenemos abierta la camara o la galeria, continuemos y veamos que pasa después de abrir la camara o la galeria</br>
+Ahorita lo que tenemos es que al precionar los botones de la galeria y de la camara primero se comprueban los permisos, luego si no los tiene se le pide los permisos al usuario, y si los acepta se abre la galeria o la camara dependiendo de que botón precionó. Entonces, hasta este checkpoint tenemos abierta la camara o la galeria, continuemos y veamos que pasa después de abrir la camara o la galeria</br></br>
+
+Veamos que hacemos después de seleccionar una imagen o tomar una foto.</br>
+Esto lo hacemos con una función de Kotlin nuevamente que ya viene solo para que nosotros la usemos, llamada "onActivityResult" o sea, que pasa después de abrir la camara o galería </br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/f2c38353-464b-457e-b650-93c4d70915a0)</br>
+Esta función obtiene el código (recuerdan el que definimos arriba?) y si el código (o la opción) se eejcutó correctamente vamos a realizar una cosa u otra</br>
+Eso lo hacemos con "when" que es como el "switch case" en otros lenguajes de programación.</br>
+Entonces, cuando se haya escogido el código de la galeria haremos algo, y cuando se haya escodigo el código de la camara haremos otra cosa.</br>
+OJO: esto haremos si escogieron la galeria:
+```kotlin
+     codigo_opcion_galeria -> {
+      val imageUri: Uri? = data?.data
+      imageUri?.let {
+        val imageBitmap = MediaStore.Images.Media.getBitmap(contentResolver, it)
+        subirimagenFirebase(imageBitmap) { url ->
+        miPath = url
+        imageView.setImageURI(it)
+        }
+      }
+    }
+```
+Obtiene el Uri de la imagen seleccionada.</br>
+Convierte el Uri a un Bitmap.</br>
+Llama a subirimagenFirebase para subir la imagen a Firebase y obtiene una URL de la imagen.</br>
+Almacena la URL en la variable miPath.</br>
+Muestra la imagen en un ImageView.</br>
+
+
+Y esto haremos si escogieron la camara:
+```kotlin
+    codigo_opcion_tomar_foto -> {
+      val imageBitmap = data?.extras?.get("data") as? Bitmap
+      imageBitmap?.let {
+        subirimagenFirebase(it) { url ->
+        miPath = url
+        imageView.setImageBitmap(it)
+        }
+      }
+    }
+```
+Obtiene el Bitmap de la foto tomada.</br>
+Llama a subirimagenFirebase para subir la imagen a Firebase y obtiene una URL de la imagen.</br>
+Almacena la URL en la variable miPath.</br>
+Muestra la imagen en un ImageView.</br>
 
 
 
