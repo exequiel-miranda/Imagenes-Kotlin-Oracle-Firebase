@@ -19,7 +19,28 @@ Tenemos que tener cuidado y asegurarse que la variable lateinit sea inicializada
 ![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/0952629f-41de-4215-98b2-a79b892bbdfd)</br>
 
 Luego, creo una constante que contiene un UUID, ya que quiero que con este UUID se guarde el usuario y el nombre de la foto, si los dos tienen la misma foto, es más semcillo luego buscar la foto asignada al usuario</br>
-![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/88787aa3-a1c6-4f97-99f5-08961b3f5f1d)
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/88787aa3-a1c6-4f97-99f5-08961b3f5f1d)</br></br>
+
+Luego, ya en el método onCreate, mando a trer todos los elementos de la vista, noten como inicializo algunos componentes que declaré anteriormente, y como los inicialicé arriba en la clase puedo acceder a ellos desde otros métodos.</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/1c3763a6-0243-4433-8b5e-1c043edec9fc)</br></br>
+
+Ahora, vamos a programar estos dos botones:</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/9f2addf5-46b5-422b-ace6-031b4a9df205)
+</br>
+Al darle clic, comprobamos si el usuario aceptó los permisos (si no comprobamos que el usuario ya aceptó los permisos para abria la camara la aplicación se cierra)</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/88d212aa-0da8-4c07-a057-4a38c0213022)</br>
+Este es el código de la función para comprobar si el usuario ya aceptó los servicios:</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/717e8b30-3b5f-4877-a680-3d275fa5106f)</br>
+Si el permiso nunca lo ha aceptado, entonces se lo pedimos, pero si ya aceptó el permiso antes ya no se lo volvemos a pedir</br>
+</br>
+Y aqui están las funciones para solicitar ese permiso</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/8a968424-9f8f-461a-bc64-2573a3bbb5ec)</br>
+Estas funciones son las que hacen aparecer este cuadrito que dice si aceptamos los permisos o no</br></br>
+
+
+
+
+
 
 
 
