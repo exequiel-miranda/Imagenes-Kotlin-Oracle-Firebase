@@ -108,9 +108,21 @@ En especifico, esta es la función para subir la imagen a Firebase:</br>
 ![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/619821ec-8e17-4eb5-a3a5-55487c118cb2)</br>
 Noten como le colocamos un nombre, para colocarle un nombre puede ser cualquier nombre, pero nosotros, le ponemos como nombre la variable uuid que definimos a nivel de clase, de tal manera que se guarda asi en firebase:</br>
 ![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/e50be02a-8127-425f-b4e5-ff4dd4613f46)</br>
-Ese mismo UUID con el que se guardará la imagen, es el UUID que usaremos para colocarselo al nuevo usuario, de tal manera que tanto el cliente como la foto tengan el mismo UUID, esto nos ayudará a identificar que foto corresponde a cada usuario</br>
+Ese mismo UUID con el que se guardará la imagen, es el UUID que usaremos para colocarselo al nuevo usuario, de tal manera que tanto el cliente como la foto tengan el mismo UUID, esto nos ayudará a identificar que foto corresponde a cada usuario</br> 
+Luego de colocarle un nombre, la comprime en BitMap y la sube a Firebase, luego de eso, vean como le agregamos dos listener
+```kotlin
+      uploadTask.addOnFailureListener {
+            Toast.makeText(this@MainActivity, "Error al subir la imagen", Toast.LENGTH_SHORT).show()
 
-Pero antes,
+        }.addOnSuccessListener { taskSnapshot ->
+            imageRef.downloadUrl.addOnSuccessListener { uri ->
+                onSuccess(uri.toString())
+            }
+        }
+```
+que es onFailureListener (Cuando nos falla) le mostramos un Toast
+y un onSuccessListerner (cuando se completa exitosamente) que obtemos la URL de donde se subió la imagen (muy importante esto por que esta URL es la que guardaremos en Oracle)</br>
+
 ### ¿Como conectar Firebase a mi proyecto Android?</br>
 Si no tenemos ningun proyecto nos aparecerá asi:</br>
 ![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/e5ad9ade-f63a-44de-8ea1-02da4d3c87fc)</br>
@@ -149,7 +161,38 @@ Aqui, abrimos la primer carpeta, y luego la carpeta app, aqui será donde arrast
 Ahora vamos con el tercer paso (y ultimo), tenenemos que agregar las librerias de Firebase a nuestro proyecto Android:</br>
 ![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/91f72b88-7874-4a19-b598-61af16a717e3)</br>
 
-Primero, agregamos esta line en el archivo build.gradle a nivel de proyecto
+Primero, agregamos esta linea en el archivo build.gradle a nivel de proyecto</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/3b07b375-bcfc-45e7-b3a4-fae5c7b4da51)</br>
+De esta manera:</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/d8c3faab-2020-402a-b35d-270a2efeee9c)</br>
+
+Y para finalizar, en el archivo build.gradle a nivel de modulo agregamos estas dos lineas (la primera no)</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/0145d746-55fe-4dc9-84e5-cc7398bf003e)</br>
+Asi:</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/2e363fb3-d803-4cdd-9c05-d8bb97555d28)</br>
+Luego damos clic en "Siguiente"</br>
+Luego de completar todos los pasos damos clic en "ir a consola"</br>
+Y nos cargará el proyecto ya unido con mi aplicación, luego, damos clic en Storage para habilitar el almacenamiento de Firebase donde guardaremos nuestras fotos</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/f5c8b1fc-ab13-45ca-b1f8-01a2c05d3e77)</br>
+
+Damos clic en "Comenzar"</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/09c46863-6787-43fa-bcee-fa9504d60fc0)</br>
+Nos aseguramos de dar clic en modo prueba, para que nos den 30 dias para guardar nuestros archivos (luego extendemos este plazo)</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/801f97d0-0a28-4329-b534-bec08eb874f1)</br>
+
+Dejamos la ubicación por defecto y damos clic en "listo"</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/e15bc720-8f27-494d-86fe-71953b3eb778)</br>
+Y ya tenemos conectado nuestro proyecto Firebase con nuestra aplicación Android y habilitada la opción de Storage</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/6030c75b-7172-48b4-a783-4722c233ba9a)</br>
+
+¿Recuerdan que al inicio programamos que nos diera 30 dias de almacenamiento? pues lo extenderemos desde la pestaña de "Reglas" y le colocamos una fecha de expiración superior:</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/3b3731c7-9562-4475-baec-96305826c7d7)
+</br>
+
+Y... por ultimo, la función para guardar el usuario en oracle incluyendo el correo, contraseña y la URL de la foto </br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/8e922dcb-acd4-4477-b24e-0507d0b6f97c)</br>ç
+
+
 
 
 
