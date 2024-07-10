@@ -34,7 +34,8 @@ Ahora, vamos a programar estos dos botones:</br>
 Al darle clic, comprobamos si el usuario aceptó los permisos (si no comprobamos que el usuario ya aceptó los permisos para abria la camara la aplicación se cierra)</br>
 ![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/88d212aa-0da8-4c07-a057-4a38c0213022)</br>
 Este es el código de la función para comprobar si el usuario ya aceptó los servicios:</br>
-![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/717e8b30-3b5f-4877-a680-3d275fa5106f)</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/ceff0df0-22b4-4ca8-aae4-b29169c95fd3)
+</br>
 Si el permiso nunca lo ha aceptado, entonces se lo pedimos, pero si ya aceptó el permiso antes ya no se lo volvemos a pedir</br>
 </br>
 Y aqui están las funciones para solicitar ese permiso</br>
