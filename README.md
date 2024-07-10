@@ -104,6 +104,57 @@ Llama a subirimagenFirebase para subir la imagen a Firebase y obtiene una URL de
 Almacena la URL en la variable miPath.</br>
 Muestra la imagen en un ImageView.</br>
 
+En especifico, esta es la función para subir la imagen a Firebase:</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/619821ec-8e17-4eb5-a3a5-55487c118cb2)</br>
+Noten como le colocamos un nombre, para colocarle un nombre puede ser cualquier nombre, pero nosotros, le ponemos como nombre la variable uuid que definimos a nivel de clase, de tal manera que se guarda asi en firebase:</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/e50be02a-8127-425f-b4e5-ff4dd4613f46)</br>
+Ese mismo UUID con el que se guardará la imagen, es el UUID que usaremos para colocarselo al nuevo usuario, de tal manera que tanto el cliente como la foto tengan el mismo UUID, esto nos ayudará a identificar que foto corresponde a cada usuario</br>
+
+Pero antes,
+### ¿Como conectar Firebase a mi proyecto Android?</br>
+Si no tenemos ningun proyecto nos aparecerá asi:</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/e5ad9ade-f63a-44de-8ea1-02da4d3c87fc)</br>
+Y damos clic en "Crear uevo proyecto"</br>
+Si ya tenemos proyectos igualmente damos clic en Agregar Proyecto</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/13438149-a02c-42f7-8c0c-58fd8ad316d1)</br>
+
+Le colocamos un nombre a nuestro proyecto en Firebase </br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/cf6b3652-1f32-452b-9f06-e531cec37cbb)</br>
+
+Como segundo y ultimo paso para crear el proyecto en Firebase, nos muestra la opción para habilitar Google Analytics, pero como nosotros no las vamos a ocupar, solo la desactivamos y la damos clic en "Crear proyecto"</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/34080848-51f0-4dc6-bb17-ce9c2fc60744)</br>
+
+Y seleccionamos que queremos conectar nuestro proyecto de Firebase a una aplicación Android</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/935b579f-3766-4478-bd51-7b6e193c1ffa)</br>
+Y seguimos los 4 pasos para conectar nuestro proyecto de Firebase a nuestra aplicación Android</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/54a48371-bdc4-4127-8b0c-909053d0b01a)</br>
+
+En este primer paso nos pide que coloquemos el nombre del paquete, para estar seguros de cual es el nombre de nuestro paquete nos recomienda ir al archivo build.gradle a nivel de app, y tomamos  el valor de donde dice "applicationId"
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/e8e1cf27-2fec-4b22-abe3-dd08a54a8f03)
+</br>
+Y me queda asi el primer paso ya que los otros dos campos son opcionales, y damos clic en "Registrar app"</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/2ab6d66e-568f-4f2d-8399-ef1b85c7dac5)
+</br>
+Segundo paso, descargamos y agregamos el archivo donde nos indica</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/cfb764f8-9a4d-4d9e-93af-bc964ce7b318)</br>
+Recuerden que en Android podemos ver nuestro proyecto desde diferentes formas, una de ella es el modo de vista proyecto,</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/df112da5-77c8-41fa-a88f-4391194842a5)</br>
+
+Aqui, abrimos la primer carpeta, y luego la carpeta app, aqui será donde arrastraremos el archivo que nos indica Firebase</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/8e3b40f5-9dda-4868-82b9-2a05cb4bd20e)
+</br>
+
+🌠 Recuerden que luego debemos cambiar a la vista Android habitual</br>
+
+Ahora vamos con el tercer paso (y ultimo), tenenemos que agregar las librerias de Firebase a nuestro proyecto Android:</br>
+![image](https://github.com/exequiel-miranda/Imagenes-Kotlin-Oracle-Firebase/assets/94820436/91f72b88-7874-4a19-b598-61af16a717e3)</br>
+
+Primero, agregamos esta line en el archivo build.gradle a nivel de proyecto
+
+
+
+
+
 
 
 
